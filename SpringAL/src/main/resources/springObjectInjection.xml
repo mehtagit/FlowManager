@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+	<!-- <context:mbean-export /> -->
+	<context:component-scan base-package="nmss" />
+	<context:property-placeholder location="file:Config.properties" />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="url" value="${db.connection.url}" />
+		<property name="driverClassName" value="${db.connection.driver}" />
+		<property name="username" value="${db.connection.user}" />
+		<property name="password" value="${db.connection.pass}" />
+		<property name="removeAbandoned" value="true" />
+		<property name="logAbandoned" value="true" />
+		<property name="initialSize" value="${db.connection.min.pool.size}" />
+		<property name="maxActive" value="${db.connection.max.pool.size}" />
+	</bean>
+	<bean id="clientSocket" class="java.net.DatagramSocket" />
+
+
+	<bean id="requestQueue" name="RequestQueue"
+		class="java.util.concurrent.LinkedBlockingQueue" />
+	<bean id="transactionQueue" name="TransactionQueue"
+		class="java.util.concurrent.LinkedBlockingQueue" />
+	<bean id="ackQueue" name="ackQueue"
+		class="java.util.concurrent.LinkedBlockingQueue" />
+
+	<bean id="request" class="nmss.base.Request" scope="prototype" />
+	<bean id="gson" class="com.google.gson.Gson" />
+
+	<bean id="lFile" class="org.apache.log4j.Logger" factory-method="getLogger">
+		<constructor-arg type="java.lang.Class" value="nmss.Main.Start" />
+	</bean>
+
+	<bean id="mapOfFallBack" class="java.util.concurrent.ConcurrentHashMap" />
+
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+
+</beans>
+

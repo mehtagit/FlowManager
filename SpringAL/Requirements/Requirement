@@ -1,0 +1,27 @@
+// Mysql
+
+create table CRBT_TRANS_QUEUE(
+MSISDN VARCHAR(20) NOT NULL,
+TID VARCHAR(40) NOT NULL,
+REQUEST_OBJECT VARCHAR(2000) NOT NULL,
+STATE VARCHAR(15) NOT NULL DEFAULT 'START',
+BUSINESS_FLOW VARCHAR(10) NOT NULL DEFAULT 'crbt',
+TRANSACTION_OBJECT VARCHAR(2000) NOT NULL DEFAULT '{}',
+NEXT_RETRY_TIME TIMESTAMP DEFAULT '0000-00-00 00:00:00',
+CREATED_ON  TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+MODIFIED_ON TIMESTAMP,
+STATUS INT(1) DEFAULT 1,
+RECONCILE boolean default 0 ,
+primary key (TID)
+);
+
+create table PACK_DETAILS (packid varchar(20),amount float,days INT(3),grace_days INT(2),song_amount float default -1 , song_days INT(3) default 0, PRIMARY KEY(packid,amount));
+
+
+For Testing insert Query
+insert into CRBT_TRANS_QUEUE (MSISDN,TID,REQUEST_OBJECT) values ('5016651603','123458826053999','{msisdn: 5016651603,tid: 123458826053999,packId:P1,flowName:crbt}');
+
+CDR Format
+
+tid#msisdn#bundleId#transaction#txn_code#txn_code_desc#subscriber_id#reservation_id
+121212121212121212#8878787878#6767#aplica#0#Success#4074621291#bundle@crce02103331624890581287628935
