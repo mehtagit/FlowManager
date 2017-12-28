@@ -35,6 +35,7 @@ nmss\mappers\PackDetailsMapper.class
 nmss\util\UdpServer.class
 nmss\Transactions\Grace.class
 nmss\base\RequestDAO.class
+nmss\Main\Testing.class
 nmss\Transactions\Balance.class
 nmss\util\AppConfig.class
 nmss\flow\SongActivationFlowService.class

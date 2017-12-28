@@ -234,6 +234,7 @@ public class Utility {
 			socket.receive(recivePacket);
 			socket.close();
 			result = new String(recivePacket.getData());
+			result = result.trim();
 
 		} catch (Exception e) {
 			if (socket != null)

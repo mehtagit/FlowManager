@@ -17,7 +17,7 @@ public class TxBank {
     private String unitSign;
     @SerializedName("last_archive_balance")
     @Expose
-    private int lastArchiveBalance;
+    private Float lastArchiveBalance;
     @SerializedName("precision")
     @Expose
     private String precision;
@@ -32,16 +32,16 @@ public class TxBank {
     private long bankObjNum;
     @SerializedName("balance")
     @Expose
-    private int balance;
+    private Float balance;
     @SerializedName("bank_name")
     @Expose
     private String bankName;
     @SerializedName("credit_limit")
     @Expose
-    private int creditLimit;
+    private Float creditLimit;
     @SerializedName("balance_tier_type")
     @Expose
-    private int balanceTierType;
+    private Float balanceTierType;
     @SerializedName("attribute_name")
     @Expose
     private String attributeName;
@@ -56,7 +56,7 @@ public class TxBank {
     private int nextEvent;
     @SerializedName("external_tx_balance")
     @Expose
-    private int externalTxBalance;
+    private Float externalTxBalance;
     @SerializedName("last_archive_date")
     @Expose
     private String lastArchiveDate;
@@ -80,7 +80,7 @@ public class TxBank {
     private boolean mainBankInd;
     @SerializedName("next_event_balance")
     @Expose
-    private int nextEventBalance;
+    private Float nextEventBalance;
     @SerializedName("customer_obj_num")
     @Expose
     private long customerObjNum;
@@ -121,11 +121,11 @@ public class TxBank {
         this.unitSign = unitSign;
     }
 
-    public int getLastArchiveBalance() {
+    public Float getLastArchiveBalance() {
         return lastArchiveBalance;
     }
 
-    public void setLastArchiveBalance(int lastArchiveBalance) {
+    public void setLastArchiveBalance(Float lastArchiveBalance) {
         this.lastArchiveBalance = lastArchiveBalance;
     }
 
@@ -161,11 +161,11 @@ public class TxBank {
         this.bankObjNum = bankObjNum;
     }
 
-    public int getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(Float balance) {
         this.balance = balance;
     }
 
@@ -177,19 +177,19 @@ public class TxBank {
         this.bankName = bankName;
     }
 
-    public int getCreditLimit() {
+    public Float getCreditLimit() {
         return creditLimit;
     }
 
-    public void setCreditLimit(int creditLimit) {
+    public void setCreditLimit(Float creditLimit) {
         this.creditLimit = creditLimit;
     }
 
-    public int getBalanceTierType() {
+    public Float getBalanceTierType() {
         return balanceTierType;
     }
 
-    public void setBalanceTierType(int balanceTierType) {
+    public void setBalanceTierType(Float balanceTierType) {
         this.balanceTierType = balanceTierType;
     }
 
@@ -225,11 +225,11 @@ public class TxBank {
         this.nextEvent = nextEvent;
     }
 
-    public int getExternalTxBalance() {
+    public Float getExternalTxBalance() {
         return externalTxBalance;
     }
 
-    public void setExternalTxBalance(int externalTxBalance) {
+    public void setExternalTxBalance(Float externalTxBalance) {
         this.externalTxBalance = externalTxBalance;
     }
 
@@ -289,11 +289,11 @@ public class TxBank {
         this.mainBankInd = mainBankInd;
     }
 
-    public int getNextEventBalance() {
+    public Float getNextEventBalance() {
         return nextEventBalance;
     }
 
-    public void setNextEventBalance(int nextEventBalance) {
+    public void setNextEventBalance(Float nextEventBalance) {
         this.nextEventBalance = nextEventBalance;
     }
 

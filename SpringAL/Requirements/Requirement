@@ -15,11 +15,27 @@ RECONCILE boolean default 0 ,
 primary key (TID)
 );
 
+
+create table CRBT_TRANS_QUEUE1(
+MSISDN VARCHAR2(20) NOT NULL,
+TID VARCHAR2(40) NOT NULL,
+REQUEST_OBJECT VARCHAR2(2000) ,
+STATE VARCHAR2(15)  DEFAULT 'START',
+BUSINESS_FLOW VARCHAR2(10)  DEFAULT 'activation',
+TRANSACTION_OBJECT VARCHAR2(2000)  DEFAULT '{}',
+NEXT_RETRY_TIME DATE ,
+CREATED_ON  DATE  DEFAULT SYSDATE,
+MODIFIED_ON DATE,
+STATUS NUMBER(1) DEFAULT 1,
+RECONCILE NUMBER(1) default 0 ,
+primary key (TID)
+);
+
 create table PACK_DETAILS (packid varchar(20),amount float,days INT(3),grace_days INT(2),song_amount float default -1 , song_days INT(3) default 0, PRIMARY KEY(packid,amount));
 
 
 For Testing insert Query
-insert into CRBT_TRANS_QUEUE (MSISDN,TID,REQUEST_OBJECT) values ('5016651603','123458826053999','{msisdn: 5016651603,tid: 123458826053999,packId:P1,flowName:crbt}');
+insert into CRBT_TRANS_QUEUE1 (MSISDN,TID,REQUEST_OBJECT,BUSINESS_FLOW) values ('5016790022','171222092433008','{msisdn: 5016790022,tid: 171222092433008,packId:P1,flowName:activation}','activation');
 
 CDR Format
 

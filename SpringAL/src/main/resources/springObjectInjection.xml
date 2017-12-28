@@ -9,7 +9,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<context:annotation-config />
 	<!-- <context:mbean-export /> -->
 	<context:component-scan base-package="nmss" />
-	<context:property-placeholder location="file:Config.properties" />
+	<context:property-placeholder location="classpath:Config.properties" />
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">

@@ -17,7 +17,7 @@ public class CyclicBank {
     private String unitSign;
     @SerializedName("last_balance")
     @Expose
-    private float lastBalance;
+    private Float lastBalance;
     @SerializedName("last_balance_date")
     @Expose
     private String lastBalanceDate;
@@ -44,7 +44,7 @@ public class CyclicBank {
     private String subscriberId;
     @SerializedName("balance")
     @Expose
-    private long balance;
+    private Float balance;
     @SerializedName("bank_name")
     @Expose
     private String bankName;
@@ -89,7 +89,7 @@ public class CyclicBank {
     private boolean mainBankInd;
     @SerializedName("next_event_balance")
     @Expose
-    private long nextEventBalance;
+    private Float nextEventBalance;
     @SerializedName("srt")
     @Expose
     private String srt;
@@ -199,11 +199,11 @@ public class CyclicBank {
         this.subscriberId = subscriberId;
     }
 
-    public long getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public void setBalance(long balance) {
+    public void setBalance(Float balance) {
         this.balance = balance;
     }
 
@@ -319,11 +319,11 @@ public class CyclicBank {
         this.mainBankInd = mainBankInd;
     }
 
-    public long getNextEventBalance() {
+    public Float getNextEventBalance() {
         return nextEventBalance;
     }
 
-    public void setNextEventBalance(long nextEventBalance) {
+    public void setNextEventBalance(Float nextEventBalance) {
         this.nextEventBalance = nextEventBalance;
     }
 

@@ -39,10 +39,14 @@ public class AckHandler extends Thread
 			{
 				String ack  = ackQueue.take();
 				lFile.info("ack received ["+ack+"]");
-				HashMap<String ,String > TV = xmlParser.soapParserMultipleValues(ack, tags);
+				//00049#1212121#RESPONSE_ACK#9818751483#171218135605000#|
+				String ack_buff [] = ack.split("#");
+				//HashMap<String ,String > TV = xmlParser.soapParserMultipleValues(ack, tags);
 				Request request = new CrbtRequest();
-				request.setMsisdn(TV.get(tags[1]));
-				request.setTid(TV.get(tags[0]));
+				//request.setMsisdn(TV.get(tags[1]));
+				//request.setTid(TV.get(tags[0]));
+				request.setMsisdn(ack_buff[3]);
+				request.setTid(ack_buff[4]);
 				jdbcRequestDAOImpl.delete(request);
 				
 			}
