@@ -51,6 +51,7 @@ public class TransQueuePicker implements Runnable {
 							if (request != null) 
 							{
 								CrbtRequest tempreq = (CrbtRequest)request;
+								lFile.info("transaction picked ["+tempreq+"]");
 								String ackResponse = tempreq.getMsg();
 								ackResponse = ackResponse.replaceAll("REQ", "ACK");
 								ackResponse = "00000#5667799#CRBT#"+tempreq.getMsisdn()+"#"+ackResponse;

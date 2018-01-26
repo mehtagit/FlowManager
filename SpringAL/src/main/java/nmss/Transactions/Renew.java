@@ -19,6 +19,7 @@ public class Renew extends Transaction {
 
 			JdbcCrbtRequestDAOImpl jdbcCrbtRequestDAOImpl = (JdbcCrbtRequestDAOImpl) requestDAO;
 			jdbcCrbtRequestDAOImpl.updateRenewal(request);
+			jdbcCrbtRequestDAOImpl.updateSystemRenewal(request);
 
 			requestDAO.updateState(request);
 		} catch (Exception e) {

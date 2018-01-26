@@ -225,7 +225,24 @@ public class JdbcCrbtRequestDAOImpl implements RequestDAO {
 		return update(query);
 	}
 
+	public int updateSystemRenewal(Request request) {
+		CrbtRequest crbtRequest = (CrbtRequest) request;
+
+		String query = "update SUBSCRIBER_BASE set RENEW_DATE=DATE_ADD(RENEW_DATE , INTERVAL " + crbtRequest.getDays()
+				+ " DAY) , STATUS='ACT' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
+				+ "'";
+		return update(query);
+	}
+	
 	public int updateGrace(Request request) {
+		CrbtRequest crbtRequest = (CrbtRequest) request;
+		String query = "update SUBSCRIBER_BASE set LAST_TRNX_DATE=" + sqlUtility.currentDate()
+				+ " , STATUS='GRACE' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
+				+ "'";
+		return update(query);
+	}
+	
+	public int updateSystemGrace(Request request) {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
 		String query = "update SUBSCRIBER_BASE set LAST_TRNX_DATE=" + sqlUtility.currentDate()
 				+ " , STATUS='GRACE' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()

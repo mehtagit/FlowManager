@@ -55,8 +55,8 @@ public class SongBalance extends Transaction {
 					/* negative balance means balance is available */
 					crbtRequest.setDaysCanGrace(packDetails.getGraceDays());
 					if (packDetails.getSongAmount() <= availBal) {
-						crbtRequest.setDebitAmount(packDetails.getAmount());
-						crbtRequest.setCreditAmout(packDetails.getAmount());
+						crbtRequest.setDebitAmount(packDetails.getSongAmount());
+						crbtRequest.setCreditAmout(packDetails.getSongAmount());
 						crbtRequest.setDays(packDetails.getSongDays());
 						crbtRequest.setDaysCanGrace(packDetails.getGraceDays());
 						break;
@@ -75,7 +75,7 @@ public class SongBalance extends Transaction {
 				request.setTxnStatusDesc("No Balance in Account");
 			}
 
-			lFile.info("Balance Result : " + request + ", TimeTake:" + request.getTxnTime());
+			lFile.info("Song Balance Result : " + request + ", TimeTake:" + request.getTxnTime());
 
 			requestDAO.updateState(request);
 		} catch (Exception e) {

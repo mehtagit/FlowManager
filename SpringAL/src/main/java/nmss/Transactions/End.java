@@ -45,10 +45,12 @@ public class End extends Transaction {
 				{
 					jdbcCrbtRequestDAOImpl.deleteFromSubsciption(request);
 					jdbcCrbtRequestDAOImpl.updateComplete(crbtRequest);
+					String responseBack = crbtUtill.getResponseBack(crbtRequest);
+					utility.UDP_SEND(config.responseIP, config.responsePORT, responseBack, true);
 				}
 				else if("renewal".equalsIgnoreCase(request.getFlowName())){
 					requestDAO.deleteByTid(request.getTid());
-				}else if("songDownload".equals(request.getFlowName())){
+				}else if("songdownload".equals(request.getFlowName())){
 					//jdbcCrbtRequestDAOImpl.saveAsSubscribe(crbtRequest);
 					jdbcCrbtRequestDAOImpl.updateComplete(crbtRequest);
 					String responseBack = crbtUtill.getResponseBack(crbtRequest);
@@ -60,8 +62,7 @@ public class End extends Transaction {
 				// Fail transactions
 			}
 			
-			// utility.UDP_SEND(appConfig.cdr_ip, appConfig.cdr_port,
-			// request.toCdr(), false);
+			// utility.UDP_SEND(appConfig.cdr_ip, appConfig.cdr_port,request.toCdr(), false);
 
 			/* Response URL Curl with JSON */
 			/*

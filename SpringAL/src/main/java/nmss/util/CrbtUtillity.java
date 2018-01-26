@@ -54,6 +54,14 @@ public class CrbtUtillity extends Utility {
 						+ "</SERVICE_DAYS><SONG_AMT></SONG_AMT><SONG_DAYS></SONG_DAYS><SIM>" + request.getSimType()
 						+ "</SIM><IMSE>imse</IMSE><HLRID>hlrid</HLRID><CIRCLE>circle</CIRCLE><INID>indi</INID><SCLASS>serviceclass</SCLASS><FREESONG></FREESONG><SERVICESMS>sms of service</SERVICESMS><SONGSMS>sms of song</SONGSMS></RES>#";
 			}
+			else if (request.getFlowName().equals("songdownload")) {
+				DATA = "00000#5667799#CRBT#"+request.getMsisdn()+"#<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><RES><MSG_TYPE>"+messageType+"</MSG_TYPE><MSISDN>"
+						+ request.getMsisdn() + "</MSISDN><PACKID>" + request.getPackId()
+						+ "</PACKID><ACTION>songdownload</ACTION><TRANS_ID>" + request.getTid() + "</TRANS_ID><RESULT>"
+						+ result + "</RESULT><REASON>" + request.getTxnStatusDesc() + "</REASON><SERVICE_AMT></SERVICE_AMT><SERVICE_DAYS></SERVICE_DAYS><SONG_AMT>"
+						+request.getDebitAmount()+"</SONG_AMT><SONG_DAYS>"+request.getDays()+"</SONG_DAYS><SIM>" + request.getSimType()
+						+ "</SIM><IMSE>imse</IMSE><HLRID>hlrid</HLRID><CIRCLE>circle</CIRCLE><INID>indi</INID><SCLASS>serviceclass</SCLASS><FREESONG></FREESONG><SERVICESMS>sms of service</SERVICESMS><SONGSMS>sms of song</SONGSMS></RES>#";
+			}
 			// song and activation
 			else if (request.getFlowName().equals("activationWithSong")) {
 				DATA = "00000#5667799#CRBT#"+request.getMsisdn()+"#<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><RES><MSG_TYPE>"+messageType+"</MSG_TYPE><MSISDN>"

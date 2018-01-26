@@ -1,6 +1,7 @@
 package nmss.flow;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import nmss.Main.Start;
@@ -17,7 +18,7 @@ import nmss.base.Transaction;
 import nmss.util.CrbtUtillity;
 import nmss.util.JdbcCrbtRequestDAOImpl;
 
-@Component("songDownload")
+@Component("songdownload")
 public class SongActivationFlowService extends Service {
 
 	@Autowired
@@ -28,7 +29,6 @@ public class SongActivationFlowService extends Service {
 	@Override
 	public Transaction getNextState(Request request) {
 		Transaction txn = null;
-
 		if (request.getTxnName() == null) {
 			txn = Start.ctx.getBean("token", Token.class);
 		} else {
@@ -51,11 +51,11 @@ public class SongActivationFlowService extends Service {
 						request.plusRetryCount();
 					} else {
 						txn = Start.ctx.getBean("end", End.class);
-						request.setTxnName("end,token");
+						request.setTxnName("end");
 					}
 				}
 				break;
-			case "songBalance":
+			case "songbalance":
 				if ("0".equals(request.getTxnStatus())) {
 					txn = Start.ctx.getBean("debit", Debit.class);
 					request.setTxnName("debit");
@@ -67,7 +67,7 @@ public class SongActivationFlowService extends Service {
 						request.plusRetryCount();
 					} else {
 						txn = Start.ctx.getBean("end", End.class);
-						request.setTxnName("end,balance");
+						request.setTxnName("end");
 					}
 				}
 				break;

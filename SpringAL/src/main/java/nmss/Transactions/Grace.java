@@ -19,6 +19,7 @@ public class Grace extends Transaction {
 
 			JdbcCrbtRequestDAOImpl jdbcCrbtRequestDAOImpl = (JdbcCrbtRequestDAOImpl) requestDAO;
 			jdbcCrbtRequestDAOImpl.updateGrace(request);
+			jdbcCrbtRequestDAOImpl.updateSystemGrace(request);
 
 			requestDAO.updateState(request);
 		} catch (Exception e) {
