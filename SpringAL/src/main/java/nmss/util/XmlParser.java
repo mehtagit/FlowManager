@@ -104,7 +104,7 @@ public class XmlParser
 
 					try{hm.put(tagName[i], node.getFirstChild().getNodeValue());
 					}catch(Exception ee){
-						hm.put(tagName[i], null);
+						hm.put(tagName[i], "");
 					}
 					
 					// System.out.println( tagValue );

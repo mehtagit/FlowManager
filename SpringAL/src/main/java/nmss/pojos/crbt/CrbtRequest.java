@@ -1,13 +1,23 @@
 package nmss.pojos.crbt;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import nmss.base.Request;
+import nmss.util.XmlParser;
 
 @Component("airtelRequest")
 @Scope("prototype")
 public class CrbtRequest extends Request {
+	
+	@Autowired
+	private XmlParser xmlParser;
+	
 
 	private String token;
 	private String msg;
@@ -79,8 +89,7 @@ public class CrbtRequest extends Request {
 
 	@Override
 	public String toCdr() {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 	public int getDaysGraced() {
@@ -116,5 +125,9 @@ public class CrbtRequest extends Request {
 				+ getTxnStatus() + ", TxnStatusDesc=" + getTxnStatusDesc() + ", FlowName=" + getFlowName()
 				+ "]";
 	}
-
+	
+	public String getDateTime()
+	{
+		return new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+	}
 }

@@ -62,7 +62,7 @@ public class End extends Transaction {
 				// Fail transactions
 			}
 			
-			// utility.UDP_SEND(appConfig.cdr_ip, appConfig.cdr_port,request.toCdr(), false);
+			 utility.UDP_SEND(appConfig.cdr_ip, appConfig.cdr_port,crbtUtill.getCdrFromXml(crbtRequest), false);
 
 			/* Response URL Curl with JSON */
 			/*

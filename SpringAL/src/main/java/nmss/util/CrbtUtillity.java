@@ -18,6 +18,7 @@ public class CrbtUtillity extends Utility {
 	private MessageSource resources;
 	@Autowired
 	private XmlParser xmlParser;
+	
 	private String[] tags = {"TID","MSISDN","PACKID","MSG_TYPE"};
 	
 	public String getResponseBack(CrbtRequest request) {
@@ -81,5 +82,16 @@ public class CrbtUtillity extends Utility {
 	public int getNextRetryTime(String state, int rertyCount) {
 		return Integer.parseInt(resources.getMessage(state + "." + rertyCount, null, "-1", null));
 
+	}
+	
+	public String getCdrFromXml(CrbtRequest request){
+		String tags [] = {"CIRCLE","SN","MN","CLIPID","INTERFACE","PROMOID"};
+		System.out.println("xml parser ["+xmlParser+"]");
+		System.out.println("tags ["+tags+"]");
+		System.out.println("message ["+request.getMsg()+"]");
+		HashMap<String ,String > TV = xmlParser.soapParserMultipleValues(request.getMsg(), tags);
+		String CDR = getDateTime(0)+","+request.getMsisdn()+","+request.getTid()+","+request.getDebitAmount()+","+request.getPackId()+",pack_type,registration,"+
+		TV.get("CIRCLE")+","+TV.get("SN")+","+TV.get("MN")+","+TV.get("CLIPID")+","+TV.get("INTERFACE")+","+TV.get("PROMOID");
+		return CDR;
 	}
 }

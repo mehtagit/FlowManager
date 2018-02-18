@@ -28,6 +28,7 @@ public class AckHandler extends Thread
 	
 	@Autowired
 	private XmlParser xmlParser;
+	
 	@Autowired
 	private JdbcCrbtRequestDAOImpl jdbcRequestDAOImpl;
 
