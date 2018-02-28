@@ -15,12 +15,11 @@ public class Renew extends Transaction {
 	public boolean doTransaction(Request request) {
 		try {
 
-			lFile.info("Grace Result : " + request + ", TimeTake:" + request.getTxnTime());
+			lFile.info("Renew Result : " + request + ", TimeTake:" + request.getTxnTime());
 
 			JdbcCrbtRequestDAOImpl jdbcCrbtRequestDAOImpl = (JdbcCrbtRequestDAOImpl) requestDAO;
 			jdbcCrbtRequestDAOImpl.updateRenewal(request);
-			jdbcCrbtRequestDAOImpl.updateSystemRenewal(request);
-
+			jdbcCrbtRequestDAOImpl.renewalSuccessSynk(request);
 			requestDAO.updateState(request);
 		} catch (Exception e) {
 			e.printStackTrace();

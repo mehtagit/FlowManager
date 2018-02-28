@@ -86,12 +86,12 @@ public class CrbtUtillity extends Utility {
 	
 	public String getCdrFromXml(CrbtRequest request){
 		String tags [] = {"CIRCLE","SN","MN","CLIPID","INTERFACE","PROMOID"};
-		System.out.println("xml parser ["+xmlParser+"]");
-		System.out.println("tags ["+tags+"]");
-		System.out.println("message ["+request.getMsg()+"]");
 		HashMap<String ,String > TV = xmlParser.soapParserMultipleValues(request.getMsg(), tags);
-		String CDR = getDateTime(0)+","+request.getMsisdn()+","+request.getTid()+","+request.getDebitAmount()+","+request.getPackId()+",pack_type,registration,"+
-		TV.get("CIRCLE")+","+TV.get("SN")+","+TV.get("MN")+","+TV.get("CLIPID")+","+TV.get("INTERFACE")+","+TV.get("PROMOID");
+		String CIRCLE =TV.get("CIRCLE");
+		if (CIRCLE == null || CIRCLE.equals(""))
+			CIRCLE="WBC";
+		String CDR = getDateTime(0)+","+request.getFlowName()+","+request.getMsisdn()+","+request.getTid()+","+request.getDebitAmount()+","+request.getPackId()+",pack_type,registration,"+
+		CIRCLE+","+TV.get("SN")+","+TV.get("MN")+","+TV.get("CLIPID")+","+TV.get("INTERFACE")+","+TV.get("PROMOID");
 		return CDR;
 	}
 }

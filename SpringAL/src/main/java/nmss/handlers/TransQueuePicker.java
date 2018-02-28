@@ -52,10 +52,14 @@ public class TransQueuePicker implements Runnable {
 							{
 								CrbtRequest tempreq = (CrbtRequest)request;
 								lFile.info("transaction picked ["+tempreq+"]");
+								try{
 								String ackResponse = tempreq.getMsg();
 								ackResponse = ackResponse.replaceAll("REQ", "ACK");
 								ackResponse = "00000#5667799#CRBT#"+tempreq.getMsisdn()+"#"+ackResponse;
 								crbtUtill.UDP_SEND(appConfig.responseIP, appConfig.responsePORT, ackResponse, true);
+								}catch (Exception e) {
+									e.printStackTrace();
+								}
 								//tempreq.setMsg("");
 								if (("activation").equalsIgnoreCase(request.getFlowName())) {
 									if (validation.validateActivation(request)) {
@@ -99,7 +103,7 @@ public class TransQueuePicker implements Runnable {
 				}
 			}
 		} catch (Exception e) {
-			lFile.info("Exception in udp Server [" + e + "]");
+			lFile.info("Exception in Trans Queue Picker [" + e + "]");
 			e.printStackTrace();
 		}
 	}

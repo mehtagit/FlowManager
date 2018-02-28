@@ -56,7 +56,7 @@ public class Validation {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
 		if (!validateRequest(crbtRequest)) {
 			return false;
-		} else if (!jdbcRequestDAOImpl.isAlreadySubscribed(crbtRequest)) {
+		} else if (jdbcRequestDAOImpl.isAlreadySubscribed(crbtRequest)) {
 			request.setTxnStatusDesc("Validation Fail::Not Subscribed");
 			return false;
 		}

@@ -1,5 +1,8 @@
 package nmss.flow;
 
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import nmss.Main.Start;
@@ -11,12 +14,17 @@ import nmss.Transactions.Grace;
 import nmss.Transactions.Renew;
 import nmss.Transactions.Token;
 import nmss.base.Request;
+import nmss.base.RequestDAO;
 import nmss.base.Service;
 import nmss.base.Transaction;
+import nmss.util.JdbcCrbtRequestDAOImpl;
 
 @Component("renewal")
 public class RenewalFlowService extends Service {
-
+	
+	@Autowired
+	JdbcCrbtRequestDAOImpl jdbcCrbtRequestDAOImpl ; 
+	
 	@Override
 	public Transaction getNextState(Request request) {
 		Transaction txn = null;
@@ -73,12 +81,29 @@ public class RenewalFlowService extends Service {
 					request.setTxnName("deprovisining");
 				}
 				break;
-
-			case "deprovisining":
-				if ("0".equals(request.getTxnStatus())) {
+				
+			case "renew":
+				if ("0".equals(request.getTxnStatus()))
+				{
 					txn = Start.ctx.getBean("end", End.class);
 					request.setTxnName("end");
-				} else {
+				}
+				else
+				{
+					txn = Start.ctx.getBean("end", End.class);
+					request.setTxnName("end"); 
+				}
+			break;
+
+			case "deprovisining":
+				if ("0".equals(request.getTxnStatus())) 
+				{
+					jdbcCrbtRequestDAOImpl.deleteFromSubsciption(request);
+					txn = Start.ctx.getBean("end", End.class);
+					request.setTxnName("end");
+				} 
+				else 
+				{
 					txn = Start.ctx.getBean("end", End.class);
 					request.setTxnName("end");
 				}

@@ -12,6 +12,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -218,6 +219,25 @@ public class Utility {
 		calendar.add(Calendar.DATE, days);
 		return dateformat.format(calendar.getTime());
 	}
+	public String calDate(int Days)
+    {
+            try
+            {
+                    Calendar c = Calendar.getInstance();
+                    c.add(Calendar.DATE,Days);
+                    java.util.Date  renew_date = c.getTime();
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                    String rdate = df.format(renew_date);
+                    return rdate;
+            }
+            catch(Exception e)
+            {
+                    e.printStackTrace();
+                    return "";
+            }
+
+    }
+
 	public String sendReceive(String sendData, String ip, int port) {
 		DatagramSocket socket = null;
 		String result = null;

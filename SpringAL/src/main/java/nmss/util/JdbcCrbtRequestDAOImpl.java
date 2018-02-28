@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.helpers.UtilLoggingLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -173,10 +174,12 @@ public class JdbcCrbtRequestDAOImpl implements RequestDAO {
 		return reqDataList;
 	}
 
-	public boolean isAlreadySubscribed(Request request) {
-		CrbtRequest crbtRequest = (CrbtRequest) request;
-		String query = "select count(*) from SUBSCRIBER_BASE WHERE MSISDN=" + request.getMsisdn() + " and packId='"
-				+ crbtRequest.getPackId() + "'";
+	public boolean isAlreadySubscribed(Request request) 
+	{
+		return false;
+		/*CrbtRequest crbtRequest = (CrbtRequest) request;
+		String query = "select count(*) from crbt_subscriber_profile WHERE MSISDN=" + request.getMsisdn() + " and packId='"
+				+ crbtRequest.getPackId() + "' and status=''";
 		int i = 0;
 		try {
 			i = this.jdbcTemplate.queryForInt(query);
@@ -185,10 +188,12 @@ public class JdbcCrbtRequestDAOImpl implements RequestDAO {
 		}
 		lFile.info("Query [" + query + "] , status:" + i);
 		return i > 0 ? true : false;
+		*/
 	}
 
 	public boolean isAlreadyRenewalForDay(Request request) {
-		CrbtRequest crbtRequest = (CrbtRequest) request;
+		return false;
+		/*CrbtRequest crbtRequest = (CrbtRequest) request;
 		int i = 0;
 		try {
 			if (sqlUtility.getDbType().equals("mysql")) {
@@ -205,6 +210,7 @@ public class JdbcCrbtRequestDAOImpl implements RequestDAO {
 		crbtRequest.setDaysGraced(i);
 
 		return i < 1 ? true : false;
+		*/
 	}
 
 	public int saveAsSubscribe(Request request) {
@@ -219,41 +225,35 @@ public class JdbcCrbtRequestDAOImpl implements RequestDAO {
 	public int updateRenewal(Request request) {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
 
-		String query = "update SUBSCRIBER_BASE set RENEW_DATE=DATE_ADD(RENEW_DATE , INTERVAL " + crbtRequest.getDays()
-				+ " DAY) , STATUS='ACT' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
+		/*String query = "update SUBSCRIBER_BASE set RENEW_DATE=DATE_ADD(RENEW_DATE , INTERVAL " + crbtRequest.getDays()+ " DAY) , STATUS='ACT' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
 				+ "'";
+		 */
+		String query = "Update CRBT_SUBSCRIBER_PROFILE set RENEWAL_DATE=to_date('"+ utility.calDate(crbtRequest.getDays())+"','YYYY-MM-DD') , RENEWAL_TRY_DATE="+sqlUtility.currentDate()+" where SUBSCRIBER_ID="+request.getMsisdn();
 		return update(query);
 	}
 
-	public int updateSystemRenewal(Request request) {
+	public int renewalSuccessSynk(Request request) {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
 
-		String query = "update SUBSCRIBER_BASE set RENEW_DATE=DATE_ADD(RENEW_DATE , INTERVAL " + crbtRequest.getDays()
+		/*String query = "update SUBSCRIBER_BASE set RENEW_DATE=DATE_ADD(RENEW_DATE , INTERVAL " + crbtRequest.getDays()
 				+ " DAY) , STATUS='ACT' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
 				+ "'";
+		 */
+		String query="";//"INSERT INTO CRBT_TRANSACTION_TABLE (TRANSACTION_ID,SUBSCRIBER_ID,TRANSACTION_STATUS,TRANSACTION_LEG,TRANSACTION_TYPE,TRANSACTION_START_TIME,CIRCLE_ID,REGION_ID,PROVISIONING_INTERFACE,TONE_ID,TONE_TYPE,TONE_TYPE_IDX,CALLING_PARTY,PACK_ID,OPERATION,FEATURE_FLAG,SONG_NAME,MOVIE_NAME,EAUC_FLAG,EAUC_PACKID,PRERBT_FLAG,TRANSACTION_UPDATE_TIME,XML_BUF) VALUES('"+Trans_id+"','"+request.getMsisdn()+"','ACK','USDBM','P',SYSDATE,null,null,'"+Req_From+"','"+Tone_id+"',null,null,null,'"+Product+"',null,null,'"+Tone_Name+"','"+Movie_Name+"',null,null,null,SYSDATE,'"+DATA_TO_TP+"')";
 		return update(query);
 	}
-	
+
 	public int updateGrace(Request request) {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
-		String query = "update SUBSCRIBER_BASE set LAST_TRNX_DATE=" + sqlUtility.currentDate()
-				+ " , STATUS='GRACE' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
-				+ "'";
+		String query = "Update CRBT_SUBSCRIBER_PROFILE set RENEWAL_STATUS='G' , RENEWAL_TRY_DATE="+sqlUtility.currentDate()+" where SUBSCRIBER_ID="+request.getMsisdn();
+		//String query1 = "update SUBSCRIBER_BASE set LAST_TRNX_DATE=" + sqlUtility.currentDate() + " , STATUS='GRACE' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()+ "'";
 		return update(query);
 	}
 	
-	public int updateSystemGrace(Request request) {
-		CrbtRequest crbtRequest = (CrbtRequest) request;
-		String query = "update SUBSCRIBER_BASE set LAST_TRNX_DATE=" + sqlUtility.currentDate()
-				+ " , STATUS='GRACE' WHERE MSISDN=" + request.getMsisdn() + " and packId='" + crbtRequest.getPackId()
-				+ "'";
-		return update(query);
-	}
-
 	public int deleteFromSubsciption(Request request) {
 		CrbtRequest crbtRequest = (CrbtRequest) request;
-		String query = "delete from SUBSCRIBER_BASE  WHERE MSISDN=" + request.getMsisdn() + " and packId='"
-				+ crbtRequest.getPackId() + "'";
+		//String query = "delete from SUBSCRIBER_BASE  WHERE MSISDN=" + request.getMsisdn() + " and packId='"+ crbtRequest.getPackId() + "'";
+		String query = "Update CRBT_SUBSCRIBER_PROFILE set RENEWAL_STATUS='D' , RENEWAL_TRY_DATE="+sqlUtility.currentDate()+" where SUBSCRIBER_ID="+request.getMsisdn();
 		return update(query);
 	}
 
