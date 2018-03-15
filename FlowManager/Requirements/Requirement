@@ -1,0 +1,46 @@
+create table virgin_fulfillment_Request(
+MSISDN VARCHAR2(20) NOT NULL,
+TID VARCHAR2(20) NOT NULL,
+REQUEST_OBJECT VARCHAR2(500) NOT NULL,
+STATE VARCHAR2(15) DEFAULT 'START',
+TRANSACTION_OBJECT VARCHAR2(500),
+NEXT_RETRY_TIME DATE DEFAULT SYSDATE,
+CREATED_ON DATE DEFAULT SYSDATE,
+MODIFIED_ON DATE DEFAULT SYSDATE,
+STATUS NUMBER(1) DEFAULT 1,
+primary key (TID)
+);
+
+// Mysql
+
+create table FULFILLMENT_REQUEST(
+MSISDN VARCHAR(20) NOT NULL,
+TID VARCHAR(40) NOT NULL,
+REQUEST_OBJECT VARCHAR(2000) NOT NULL,
+STATE VARCHAR(15) NOT NULL DEFAULT 'START',
+BUSINESS_FLOW VARCHAR(10) NOT NULL DEFAULT '',
+TRANSACTION_OBJECT VARCHAR(2000) NOT NULL DEFAULT '{}',
+NEXT_RETRY_TIME DATETIME,
+CREATED_ON  TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
+MODIFIED_ON DATETIME,
+STATUS INT(1) DEFAULT 1,
+RECONCILE boolean default 0 ,
+primary key (TID)
+);
+
+
+Virgin query:
+
+insert into VIRGIN_FULFILLMENT_REQUEST   (MSISDN,TID,REQUEST_OBJECT,BUSINESS_FLOW) values('7879687013','123456','{"msisdn":"7879687013","tid":"123456","fulfilment":{"cardgroup":"GOL 250MB 7 Hari"},"cardgroup":{"name":"GOL 250MB 7 Hari","amount":12,"expiryDate":"6","category":"Voice","availability":"both","discount":0,"fixPrice":0,"validity":0,"bonusUnit":0,"type":"IN"},"date":"17-12-08"}','virgin')
+
+ 
+
+Kenya query:
+
+insert into FULFILLMENT_REQUEST   (MSISDN,TID,REQUEST_OBJECT,BUSINESS_FLOW) values('7879687013','1101136','{"msisdn":"7879687013","tid":"1101136","fulfilment":{"cardgroup":"GOL 250MB 7 Hari"},"cardgroup":{"refillId":"","offerId":"23Ofer","externalData2":"edf 2","externalData1":"edf 1","postingAmount":"2","debitCode":"2","creditCode":"2","refundCode":"332r","name":"GOL 250MB 7 Hari","amount":12,"expiryDate":"6","category":"Voice","availability":"both","discount":0,"fixPrice":0,"validity":0,"bonusUnit":0,"type":"IN"},"date":"17-12-08 19:17"}','kenya')
+
+CDR Format
+
+
+tid#msisdn#bundleId#transaction#txn_code#txn_code_desc#subscriber_id#reservation_id
+121212121212121212#8878787878#6767#aplica#0#Success#4074621291#bundle@crce02103331624890581287628935

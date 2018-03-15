@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="DEV_HOME" value="/home/loanteam/TESTSETUP/FullFilment/logs" />
+    <property name="CDR_HOME" value="/home/loanteam/TESTSETUP/FullFilment/logs" />
+
+    <appender name="FILE-AUDIT"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/app.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+                %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${DEV_HOME}/app.log.%d{yyyy-MM-dd-HH}.%i.log
+                        </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+    </appender>
+
+    <appender name="CDR-WRITER"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${CDR_HOME}/DB.txt</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>
+               %m%n
+            </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${CDR_HOME}/DB.txt.%d{yyyy-MM-dd-HH-mm}.%i.log
+                        </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+    </appender>
+
+    <logger name="nuance" level="info"
+        additivity="false">
+        <appender-ref ref="FILE-AUDIT" />
+    </logger>
+    <logger name="nuance.util.FileWriter" level="info"
+        additivity="false">
+        <appender-ref ref="CDR-WRITER" />
+    </logger>
+    <root level="info">
+        <appender-ref ref="FILE-AUDIT" />
+    </root>
+
+</configuration>
