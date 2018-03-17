@@ -23,14 +23,31 @@ public class Client {
 		this.localPort = localPort;
 	}
 
-	public void connect() {
+	public void disConnect()
+	{
 		try {
-			clientSocket = new Socket(serverIP, serverPort, InetAddress.getByName(localIP), localPort);
+			//in.close();
+			//out.close();
+			clientSocket.shutdownInput();
+			clientSocket.shutdownOutput();
+			clientSocket.close();
+			
+			System.out.println("disconnected from  server....");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public boolean connect() {
+		try {
+			//clientSocket = new Socket(serverIP, serverPort, InetAddress.getByName(localIP), localPort);
+			clientSocket = new Socket(serverIP, serverPort);
 			in = new DataInputStream(clientSocket.getInputStream());
 			out = new DataOutputStream(clientSocket.getOutputStream());
 			System.out.println("connection created with server....");
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 	}
 

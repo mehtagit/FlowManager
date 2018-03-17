@@ -22,6 +22,9 @@ import dk.i1.diameter.node.Capability;
 public class CERMessage extends Message {
 
 	private Capability capability;
+	public CERMessage() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public CERMessage(int vendor_id, int app, String IN_ORIGIN_HOST, String IN_ORIGIN_REALM, String IN_VENDOR_ID,
 			String IN_PRODUCT_NAME, int IN_AUTH_APP) {
